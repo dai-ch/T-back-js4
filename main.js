@@ -11,17 +11,18 @@ let count = 0;
 const container = document.createElement('div');
 
 //ボタンを押したときにAPIを取得する
-btn.addEventListener('click', function () {
+btn.addEventListener('click', () => {
   //API取得中に表示するテキスト
   titleLogo.textContent = '取得中';
   text.textContent = '少々お待ちください';
   btn.style.display = 'none';
-  chachApi(text)
+  chachApi()
 });
 
 //JSONデータを取得するAPI
-const chachApi = function (text) {
-  fetch(Api)
+async function chachApi() {
+
+  await fetch(Api)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -36,10 +37,12 @@ const chachApi = function (text) {
     .catch(error => {
       console.log(error);
     });
+
 }
 
+
 //問題の順番を管理・表示する変数
-const Quiz = function (data) {
+const Quiz = (data) => {
 
   //dataの中のHTML要素を取得
   const quizDatas = data.results;
@@ -128,14 +131,14 @@ const nextQuiz = (data, quizDatas) => {
   quizNumber++;
   //クイズを全てといたら処理を実行
   if (quizNumber === quizDatas.length) {
-    funish();
+    showResult();
   } else {
     Quiz(data);
   }
 };
 
 //10問題解いたら解答表示、正解のカウント数を出す
-const funish = function () {
+const showResult = () => {
   titleLogo.textContent = `あなたの正解数は${count}です！！`;
   text.textContent = '再度チャレンジしたい方は以下のボタンをクリック！！';
   const homeBtn = document.createElement('button');
