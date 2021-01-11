@@ -16,11 +16,11 @@ btn.addEventListener('click', () => {
   titleLogo.textContent = '取得中';
   text.textContent = '少々お待ちください';
   btn.style.display = 'none';
-  chachApi()
+  apiData()
 });
 
 //JSONデータを取得するAPI
-async function chachApi() {
+async function apiData() {
 
   await fetch(Api)
     .then(response => {
